@@ -1,3 +1,7 @@
 Just a repo for any small scripts or things I want to keep track of.
 
-nh: Nethack wrapper that makes a copy of the dumpfile for the user as needed.
+==external.c==
+Short C file to keep external hard drive from going into power-save mode.
+
+==nh==
+Nethack wrapper that makes a copy of the dumpfile for the user as needed.
