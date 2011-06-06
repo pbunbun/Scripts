@@ -1,0 +1,27 @@
+#!/bin/bash
+
+NAME="bunbun"
+DUMP="/var/games/nethack/dumps/$NAME.lastgame.txt"
+
+#Check whether the dump file exists, get last modified time if so, 0 otherwise
+if [ ! -e $DUMP ]
+then
+	LDATE=0
+else
+	LDATE=$(date -r $DUMP +%s)
+fi
+
+#Execute nethack with the options given
+nethack $*
+
+#If dump exists and is newer than the one we saw earlier copy the dump
+if [ -e $DUMP ]
+then
+	if [ $(date -r $DUMP +%s) -gt $LDATE ]
+	then
+		#Only eval `date ...` once, in case the second changes between these lines
+		OUTFILE="~/dumps/`date +%Y-%m-%d-%H:%M:%S`.txt"
+		cp $DUMP $OUTFILE
+		chmod 644 $OUTFILE
+	fi
+fi
